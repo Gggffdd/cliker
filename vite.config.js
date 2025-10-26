@@ -4,10 +4,7 @@ export default defineConfig({
   server: {
     host: true,
     port: 3000,
-    strictPort: true,
-    hmr: {
-      overlay: true
-    }
+    strictPort: true
   },
   build: {
     outDir: 'dist',
@@ -16,9 +13,7 @@ export default defineConfig({
     target: 'es2015',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['telegram-webapp']
-        },
+        manualChunks: undefined,
         entryFileNames: 'assets/[name]-[hash].js',
         chunkFileNames: 'assets/[name]-[hash].js',
         assetFileNames: 'assets/[name]-[hash].[ext]'
