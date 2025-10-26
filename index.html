@@ -47,7 +47,6 @@
             position: relative;
         }
 
-        /* Анимированный фон */
         .background-animation {
             position: fixed;
             top: 0;
@@ -98,7 +97,6 @@
             z-index: 1;
         }
 
-        /* Header */
         .header {
             text-align: center;
             margin-bottom: 30px;
@@ -125,7 +123,6 @@
             opacity: 0.8;
         }
 
-        /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -195,7 +192,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Energy Bar */
         .energy-container {
             margin: 25px 0;
             position: relative;
@@ -245,7 +241,6 @@
             100% { left: 100%; }
         }
 
-        /* Main Tap Area */
         .tap-section {
             display: flex;
             justify-content: center;
@@ -272,7 +267,6 @@
                 inset 0 0 20px rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
             filter: brightness(1.1) contrast(1.1);
-            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
         }
 
         .coin-image:active {
@@ -315,7 +309,6 @@
             100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
         }
 
-        /* Bottom Navigation */
         .bottom-nav {
             display: grid;
             grid-template-columns: repeat(3, 2fr);
@@ -378,7 +371,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Tab Content */
         .tab-content {
             display: none;
             margin: 20px 0;
@@ -394,7 +386,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Upgrade Cards */
         .upgrades-grid {
             display: grid;
             gap: 15px;
@@ -478,7 +469,6 @@
             font-weight: 700;
         }
 
-        /* Buttons */
         .btn {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
@@ -531,7 +521,6 @@
             left: -100%;
         }
 
-        /* Shop Items */
         .shop-grid {
             display: grid;
             gap: 15px;
@@ -578,7 +567,6 @@
             margin-right: 15px;
         }
 
-        /* Invoice Section */
         .invoice-section {
             background: var(--glass);
             border: 1px solid rgba(59, 130, 246, 0.2);
@@ -607,7 +595,6 @@
             border: 1px solid var(--border);
         }
 
-        /* Notifications */
         .notification {
             position: fixed;
             top: 20px;
@@ -633,7 +620,6 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* Animations */
         .click-effect {
             position: absolute;
             pointer-events: none;
@@ -655,7 +641,6 @@
             }
         }
 
-        /* Responsive */
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
@@ -687,7 +672,6 @@
             }
         }
 
-        /* Hide coin in other tabs */
         .tap-section {
             display: none;
         }
@@ -696,7 +680,6 @@
             display: flex;
         }
         
-        /* Fallback coin design */
         .fallback-coin {
             width: 100%;
             height: 100%;
@@ -716,18 +699,15 @@
     </style>
 </head>
 <body>
-    <!-- Анимированный фон -->
     <div class="background-animation"></div>
     <div class="particles" id="particles"></div>
 
     <div class="container">
-        <!-- Header -->
         <header class="header">
             <h1 class="title">QUANTUM TAP</h1>
             <p class="subtitle">Premium Investment Platform</p>
         </header>
 
-        <!-- Statistics -->
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-coins"></i></div>
@@ -746,7 +726,6 @@
             </div>
         </div>
 
-        <!-- Energy -->
         <div class="energy-container">
             <div class="energy-header">
                 <span>ENERGY</span>
@@ -757,15 +736,12 @@
             </div>
         </div>
 
-        <!-- Tab Contents -->
         <div class="tab-content active" id="clicker-tab">
-            <!-- Main Tap Area (только в кликере) -->
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <div id="coin-fallback" class="fallback-coin">
-                        <i class="fas fa-coins"></i>
-                    </div>
+                    <!-- ВАША ФОТКА БУДЕТ ЗАГРУЖЕНА ЗДЕСЬ -->
+                    <img src="https://i.ibb.co/4gXR7DDF/photo-2024-12-18-21-24-02.jpg" alt="Coin" class="coin-image" id="coin-image">
                     <div class="coin-number">69</div>
                 </div>
             </div>
@@ -999,7 +975,6 @@
             </div>
         </div>
 
-        <!-- Bottom Navigation -->
         <div class="bottom-nav">
             <div class="nav-button active" data-tab="clicker">
                 <div class="nav-icon"><i class="fas fa-hand-pointer"></i></div>
@@ -1028,7 +1003,6 @@
         </div>
     </div>
 
-    <!-- Notification -->
     <div class="notification" id="notification"></div>
 
     <script>
@@ -1060,6 +1034,7 @@
                 this.startAutoClicker();
                 this.startEnergyRegen();
                 this.updateUI();
+                this.setupImageFallback();
                 this.showNotification('🚀 Welcome to Quantum Tap');
             }
             
@@ -1081,9 +1056,24 @@
                 }
             }
             
+            setupImageFallback() {
+                const coinImage = document.getElementById('coin-image');
+                coinImage.onerror = () => {
+                    coinImage.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'fallback-coin';
+                    fallback.innerHTML = '<i class="fas fa-coins"></i>';
+                    fallback.id = 'coin-fallback';
+                    coinImage.parentNode.insertBefore(fallback, coinImage.nextSibling);
+                    
+                    // Update event listener for fallback
+                    fallback.addEventListener('click', (e) => this.handleTap(e));
+                };
+            }
+            
             setupEventListeners() {
                 // Tap handler
-                document.getElementById('coin-fallback').addEventListener('click', (e) => this.handleTap(e));
+                document.getElementById('coin-image').addEventListener('click', (e) => this.handleTap(e));
                 
                 // Navigation
                 document.querySelectorAll('.nav-button').forEach(button => {
@@ -1116,7 +1106,6 @@
                 let coinsEarned = this.perClick + this.upgrades.click.effect;
                 let isCritical = false;
                 
-                // Critical chance
                 if (Math.random() < (this.upgrades.critical.effect / 100)) {
                     coinsEarned = Math.floor(coinsEarned * 2.5);
                     isCritical = true;
@@ -1130,11 +1119,10 @@
                 this.updateUI();
                 this.createTapEffect(event, coinsEarned, isCritical);
                 
-                // Tap animation
-                const coinFallback = document.getElementById('coin-fallback');
-                coinFallback.style.transform = 'scale(0.95)';
+                const coinElement = document.getElementById('coin-image') || document.getElementById('coin-fallback');
+                coinElement.style.transform = 'scale(0.95)';
                 setTimeout(() => {
-                    coinFallback.style.transform = 'scale(1)';
+                    coinElement.style.transform = 'scale(1)';
                 }, 100);
                 
                 this.saveGame();
@@ -1199,14 +1187,12 @@
                 const invoiceSection = document.getElementById('invoice-section');
                 const invoiceAddress = document.getElementById('invoice-address');
                 
-                // Generate random TON address (simulated)
                 const address = 'EQ' + Math.random().toString(36).substring(2, 15).toUpperCase() + 
                               Math.random().toString(36).substring(2, 15).toUpperCase();
                 
                 invoiceAddress.textContent = address;
                 invoiceSection.style.display = 'block';
                 
-                // Start 15 minute timer
                 let timeLeft = 15 * 60;
                 const timer = setInterval(() => {
                     timeLeft--;
@@ -1253,14 +1239,12 @@
             }
             
             updateUI() {
-                // Update statistics
                 document.getElementById('coins').textContent = this.formatNumber(this.coins);
                 document.getElementById('per-click').textContent = this.formatNumber(this.perClick + this.upgrades.click.effect);
                 document.getElementById('premium-count').textContent = this.premium;
                 document.getElementById('total-coins').textContent = this.formatNumber(this.totalCoins);
                 document.getElementById('critical-hits').textContent = this.criticalHits;
                 
-                // Update upgrades
                 document.getElementById('click-cost').textContent = this.formatNumber(this.upgrades.click.cost);
                 document.getElementById('click-effect').textContent = this.upgrades.click.effect;
                 document.getElementById('auto-cost').textContent = this.formatNumber(this.upgrades.auto.cost);
@@ -1268,12 +1252,10 @@
                 document.getElementById('critical-cost').textContent = this.formatNumber(this.upgrades.critical.cost);
                 document.getElementById('critical-effect').textContent = this.upgrades.critical.effect;
                 
-                // Update buttons
                 document.getElementById('buy-click').disabled = this.coins < this.upgrades.click.cost;
                 document.getElementById('buy-auto').disabled = this.coins < this.upgrades.auto.cost;
                 document.getElementById('buy-critical').disabled = this.coins < this.upgrades.critical.cost;
                 
-                // Update energy
                 const energyPercent = (this.energy / this.maxEnergy) * 100;
                 document.getElementById('energy-fill').style.width = `${energyPercent}%`;
                 document.getElementById('energy-text').textContent = `${this.energy}/${this.maxEnergy}`;
@@ -1334,7 +1316,6 @@
             }
         }
 
-        // Initialize game
         document.addEventListener('DOMContentLoaded', () => {
             window.game = new QuantumTap();
         });
