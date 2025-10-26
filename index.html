@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FG BOT</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Стили из вашего файла */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
+        }
+        
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
+            text-align: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            padding: 20px;
+            margin: 0;
+        }
+        
+        /* ... остальные стили из вашего файла ... */
+    </style>
+</head>
+<body>
+    <div class="desktop-block">
+        <h2>FG Bot доступен только в Telegram!</h2>
+        <p>Пожалуйста, откройте этот бот в мобильном приложении Telegram.</p>
+    </div>
+    
+    <div class="crypto-bg"></div>
+    <div class="crypto-particles" id="crypto-particles"></div>
+    
+    <div class="container">
+        <!-- Ваш HTML контент -->
+    </div>
+    
+    <div class="bottom-nav">
+        <!-- Навигация -->
+    </div>
+    
+    <div class="settings-modal" id="settings-modal">
+        <!-- Модальное окно настроек -->
+    </div>
+    
+    <div class="notification" id="notification"></div>
+    <div class="save-notice" id="save-notice"><span class="lang-game-saved">Игра сохранена!</span></div>
+
+    <script type="module" src="/src/main.js"></script>
+</body>
+</html>
