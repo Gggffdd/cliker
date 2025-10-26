@@ -740,8 +740,7 @@
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <!-- ВАША ФОТКА БУДЕТ ЗАГРУЖЕНА ЗДЕСЬ -->
-                    <img src="https://i.ibb.co/4gXR7DDF/photo-2024-12-18-21-24-02.jpg" alt="Coin" class="coin-image" id="coin-image">
+                    <img src="https://i.ibb.co/prMjxss1/photo-2025-10-15-23-13-06.jpg" alt="Coin" class="coin-image" id="coin-image">
                     <div class="coin-number">69</div>
                 </div>
             </div>
@@ -1066,16 +1065,13 @@
                     fallback.id = 'coin-fallback';
                     coinImage.parentNode.insertBefore(fallback, coinImage.nextSibling);
                     
-                    // Update event listener for fallback
                     fallback.addEventListener('click', (e) => this.handleTap(e));
                 };
             }
             
             setupEventListeners() {
-                // Tap handler
                 document.getElementById('coin-image').addEventListener('click', (e) => this.handleTap(e));
                 
-                // Navigation
                 document.querySelectorAll('.nav-button').forEach(button => {
                     button.addEventListener('click', () => {
                         document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
@@ -1086,12 +1082,10 @@
                     });
                 });
                 
-                // Upgrade buttons
                 document.getElementById('buy-click').addEventListener('click', () => this.buyUpgrade('click'));
                 document.getElementById('buy-auto').addEventListener('click', () => this.buyUpgrade('auto'));
                 document.getElementById('buy-critical').addEventListener('click', () => this.buyUpgrade('critical'));
                 
-                // Donate buttons
                 document.getElementById('donate-legal').addEventListener('click', () => this.showLegalDonate());
                 document.getElementById('donate-address').addEventListener('click', () => this.createInvoice());
                 document.getElementById('copy-address').addEventListener('click', () => this.copyAddress());
