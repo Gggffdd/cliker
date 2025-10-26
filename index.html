@@ -3,24 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Tap - Business Edition</title>
+    <title>Quantum Tap - Premium Edition</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb;
+            --primary: #3b82f6;
             --primary-dark: #1d4ed8;
-            --secondary: #64748b;
+            --primary-light: #60a5fa;
+            --secondary: #8b5cf6;
             --accent: #06d6a0;
+            --accent-dark: #00b386;
             --background: #0f172a;
             --surface: #1e293b;
             --surface-light: #334155;
+            --surface-dark: #0f172a;
             --text-primary: #f8fafc;
             --text-secondary: #cbd5e1;
+            --text-muted: #64748b;
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
             --border: #374151;
+            --glass: rgba(30, 41, 59, 0.7);
+            --glow: 0 0 20px rgba(59, 130, 246, 0.3);
         }
 
         * {
@@ -37,8 +43,48 @@
             color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
-            padding: 20px;
             line-height: 1.6;
+            position: relative;
+        }
+
+        /* Анимированный фон */
+        .background-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 40%, rgba(6, 214, 160, 0.05) 0%, transparent 50%),
+                linear-gradient(135deg, var(--background) 0%, var(--surface-dark) 100%);
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+            opacity: 0.1;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.1; }
+            90% { opacity: 0.05; }
+            100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
         }
 
         .container {
@@ -46,7 +92,10 @@
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            min-height: calc(100vh - 40px);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Header */
@@ -54,56 +103,86 @@
             text-align: center;
             margin-bottom: 30px;
             padding: 20px 0;
-            border-bottom: 1px solid var(--border);
+            position: relative;
         }
 
         .title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             margin-bottom: 8px;
+            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            letter-spacing: -0.5px;
         }
 
         .subtitle {
             color: var(--text-secondary);
             font-size: 1rem;
             font-weight: 400;
+            opacity: 0.8;
         }
 
         /* Stats Grid */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            gap: 15px;
             margin-bottom: 24px;
         }
 
         .stat-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
-            padding: 16px;
+            background: var(--glass);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
+            padding: 20px;
             text-align: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .stat-card:hover::before {
+            left: 100%;
         }
 
         .stat-card:hover {
+            transform: translateY(-5px);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            box-shadow: var(--glow);
         }
 
         .stat-icon {
-            font-size: 1.2rem;
-            margin-bottom: 8px;
+            font-size: 1.5rem;
+            margin-bottom: 12px;
             color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 12px;
         }
 
         .stat-value {
-            font-size: 1.3rem;
-            font-weight: 700;
+            font-size: 1.5rem;
+            font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 4px;
         }
@@ -112,35 +191,58 @@
             font-size: 0.75rem;
             color: var(--text-secondary);
             font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Energy Bar */
         .energy-container {
-            margin: 20px 0;
+            margin: 25px 0;
+            position: relative;
         }
 
         .energy-header {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-size: 0.9rem;
             color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .energy-bar {
             width: 100%;
-            height: 8px;
-            background: var(--surface-light);
+            height: 12px;
+            background: var(--surface);
             border-radius: 10px;
             overflow: hidden;
+            position: relative;
+            border: 1px solid rgba(59, 130, 246, 0.2);
         }
 
         .energy-fill {
             height: 100%;
             background: linear-gradient(90deg, var(--primary), var(--accent));
             border-radius: 10px;
-            transition: width 0.3s ease;
+            transition: width 0.5s ease;
             position: relative;
+            overflow: hidden;
+        }
+
+        .energy-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            animation: energyShine 2s infinite;
+        }
+
+        @keyframes energyShine {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         /* Main Tap Area */
@@ -149,12 +251,13 @@
             justify-content: center;
             align-items: center;
             margin: 30px 0;
+            padding: 20px;
         }
 
         .tap-container {
             position: relative;
-            width: 200px;
-            height: 200px;
+            width: 220px;
+            height: 220px;
             cursor: pointer;
         }
 
@@ -163,13 +266,19 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 3px solid var(--primary);
-            box-shadow: 0 8px 32px rgba(37, 99, 235, 0.3);
+            border: 4px solid var(--primary);
+            box-shadow: 
+                0 0 30px rgba(59, 130, 246, 0.4),
+                inset 0 0 20px rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
+            filter: brightness(1.1) contrast(1.1);
         }
 
         .coin-image:active {
             transform: scale(0.95);
+            box-shadow: 
+                0 0 20px rgba(59, 130, 246, 0.6),
+                inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
 
         .coin-number {
@@ -177,10 +286,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 2.5rem;
-            font-weight: 800;
+            font-size: 3rem;
+            font-weight: 900;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+            text-shadow: 
+                2px 2px 4px rgba(0, 0, 0, 0.8),
+                0 0 10px rgba(255, 255, 255, 0.5);
             z-index: 2;
         }
 
@@ -189,45 +300,70 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
+            width: 240px;
+            height: 240px;
             background: var(--primary);
             border-radius: 50%;
-            opacity: 0.1;
-            filter: blur(10px);
+            opacity: 0.15;
+            filter: blur(20px);
+            animation: pulse 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
         }
 
         /* Bottom Navigation */
         .bottom-nav {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(3, 2fr);
+            gap: 10px;
             margin-top: auto;
-            padding: 16px 0;
+            padding: 20px 0 10px;
+            background: var(--glass);
+            border-radius: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            position: relative;
         }
 
         .nav-button {
-            background: var(--surface);
-            border: 1px solid var(--border);
+            background: transparent;
+            border: none;
             border-radius: 16px;
-            padding: 16px;
+            padding: 14px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            color: var(--text-secondary);
+            position: relative;
         }
 
         .nav-button:hover {
-            border-color: var(--primary);
+            color: var(--primary);
             transform: translateY(-2px);
         }
 
         .nav-button.active {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.1);
+        }
+
+        .nav-button.active::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 5px;
+            height: 5px;
             background: var(--primary);
-            border-color: var(--primary);
+            border-radius: 50%;
         }
 
         .nav-icon {
@@ -235,15 +371,17 @@
         }
 
         .nav-label {
-            font-size: 0.8rem;
-            font-weight: 500;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         /* Tab Content */
         .tab-content {
             display: none;
             margin: 20px 0;
-            animation: fadeIn 0.3s ease;
+            animation: fadeIn 0.4s ease;
         }
 
         .tab-content.active {
@@ -251,27 +389,41 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
         /* Upgrade Cards */
         .upgrades-grid {
             display: grid;
-            gap: 12px;
+            gap: 15px;
         }
 
         .upgrade-card {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            background: var(--glass);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
             padding: 20px;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .upgrade-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
         .upgrade-card:hover {
+            transform: translateY(-5px);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            box-shadow: var(--glow);
         }
 
         .upgrade-header {
@@ -282,9 +434,9 @@
         }
 
         .upgrade-icon {
-            width: 48px;
-            height: 48px;
-            background: var(--surface-light);
+            width: 50px;
+            height: 50px;
+            background: rgba(59, 130, 246, 0.1);
             border-radius: 12px;
             display: flex;
             align-items: center;
@@ -297,6 +449,7 @@
             font-size: 1.1rem;
             margin-bottom: 4px;
             color: var(--text-primary);
+            font-weight: 700;
         }
 
         .upgrade-info p {
@@ -313,32 +466,52 @@
 
         .upgrade-cost {
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .upgrade-effect {
             color: var(--primary);
-            font-weight: 600;
+            font-weight: 700;
         }
 
         /* Buttons */
         .btn {
-            background: var(--primary);
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border: none;
             color: white;
-            padding: 14px 24px;
-            border-radius: 12px;
+            padding: 16px 24px;
+            border-radius: 14px;
             font-family: 'Inter', sans-serif;
-            font-weight: 600;
+            font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
             width: 100%;
             font-size: 0.95rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background: var(--primary-dark);
             transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
         }
 
         .btn:active {
@@ -347,31 +520,38 @@
 
         .btn:disabled {
             background: var(--surface-light);
-            color: var(--text-secondary);
+            color: var(--text-muted);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
+        }
+
+        .btn:disabled:hover::before {
+            left: -100%;
         }
 
         /* Shop Items */
         .shop-grid {
             display: grid;
-            gap: 12px;
+            gap: 15px;
         }
 
         .shop-item {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            background: var(--glass);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
             padding: 20px;
             display: flex;
-            justify-content: between;
+            justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
         }
 
         .shop-item:hover {
+            transform: translateY(-5px);
             border-color: var(--primary);
-            transform: translateY(-2px);
+            box-shadow: var(--glow);
         }
 
         .shop-info {
@@ -382,6 +562,7 @@
             font-size: 1rem;
             margin-bottom: 4px;
             color: var(--text-primary);
+            font-weight: 700;
         }
 
         .shop-info p {
@@ -391,34 +572,38 @@
 
         .shop-price {
             color: var(--accent);
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.1rem;
+            margin-right: 15px;
         }
 
         /* Invoice Section */
         .invoice-section {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 16px;
+            background: var(--glass);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 20px;
             padding: 20px;
             margin-top: 16px;
+            backdrop-filter: blur(10px);
         }
 
         .invoice-timer {
             text-align: center;
             color: var(--warning);
-            font-weight: 600;
+            font-weight: 700;
             margin: 16px 0;
+            font-size: 1.2rem;
         }
 
         .invoice-address {
-            background: var(--surface-light);
-            padding: 12px;
-            border-radius: 8px;
+            background: var(--surface);
+            padding: 15px;
+            border-radius: 12px;
             font-family: monospace;
             word-break: break-all;
             margin: 12px 0;
             font-size: 0.9rem;
+            border: 1px solid var(--border);
         }
 
         /* Notifications */
@@ -427,16 +612,19 @@
             top: 20px;
             left: 50%;
             transform: translateX(-50%) translateY(-100px);
-            background: var(--surface);
+            background: var(--glass);
             color: var(--text-primary);
             padding: 16px 24px;
-            border-radius: 12px;
-            border: 1px solid var(--border);
+            border-radius: 14px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
             z-index: 1000;
             opacity: 0;
             transition: all 0.3s ease;
-            font-weight: 500;
+            font-weight: 600;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            text-align: center;
+            max-width: 90%;
         }
 
         .notification.show {
@@ -448,10 +636,11 @@
         .click-effect {
             position: absolute;
             pointer-events: none;
-            font-weight: 800;
-            font-size: 1.2rem;
+            font-weight: 900;
+            font-size: 1.4rem;
             animation: floatUp 1s ease-out forwards;
             z-index: 1000;
+            text-shadow: 0 0 10px currentColor;
         }
 
         @keyframes floatUp {
@@ -461,45 +650,62 @@
             }
             100% {
                 opacity: 0;
-                transform: translate(-50%, -80px) scale(0.5);
+                transform: translate(-50%, -100px) scale(0.5);
             }
         }
 
         /* Responsive */
         @media (max-width: 480px) {
             .container {
-                padding: 0;
+                padding: 15px;
             }
             
             .title {
-                font-size: 1.8rem;
-            }
-            
-            .tap-container {
-                width: 180px;
-                height: 180px;
-            }
-            
-            .coin-number {
                 font-size: 2rem;
             }
             
+            .tap-container {
+                width: 200px;
+                height: 200px;
+            }
+            
+            .coin-number {
+                font-size: 2.5rem;
+            }
+            
             .stats-grid {
-                gap: 8px;
+                gap: 10px;
             }
             
             .stat-card {
-                padding: 12px;
+                padding: 15px;
             }
+            
+            .bottom-nav {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        /* Hide coin in other tabs */
+        .tap-section {
+            display: none;
+        }
+        
+        #clicker-tab.active .tap-section {
+            display: flex;
         }
     </style>
 </head>
 <body>
+    <!-- Анимированный фон -->
+    <div class="background-animation"></div>
+    <div class="particles" id="particles"></div>
+
     <div class="container">
         <!-- Header -->
         <header class="header">
             <h1 class="title">QUANTUM TAP</h1>
-            <p class="subtitle">Business Investment Platform</p>
+            <p class="subtitle">Premium Investment Platform</p>
         </header>
 
         <!-- Statistics -->
@@ -532,17 +738,17 @@
             </div>
         </div>
 
-        <!-- Main Tap Area -->
-        <div class="tap-section">
-            <div class="tap-container" id="tap-container">
-                <div class="tap-glow"></div>
-                <img src="https://iimg.su/i/i7NFi3" alt="Coin" class="coin-image" id="coin-image">
-                <div class="coin-number">69</div>
-            </div>
-        </div>
-
         <!-- Tab Contents -->
         <div class="tab-content active" id="clicker-tab">
+            <!-- Main Tap Area (только в кликере) -->
+            <div class="tap-section">
+                <div class="tap-container" id="tap-container">
+                    <div class="tap-glow"></div>
+                    <img src="https://i.imgur.com/9f6Y7yJ.png" alt="Coin" class="coin-image" id="coin-image" onerror="this.src='https://via.placeholder.com/220/1e293b/3b82f6?text=COIN'">
+                    <div class="coin-number">69</div>
+                </div>
+            </div>
+
             <div class="upgrades-grid">
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -589,14 +795,21 @@
                                 <h3>Make 100 Investments</h3>
                                 <p>Reward: 5,000 + Premium Boost</p>
                             </div>
-                            <button class="btn" style="padding: 8px 16px; width: auto;">Claim</button>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Claim</button>
                         </div>
                         <div class="shop-item">
                             <div class="shop-info">
                                 <h3>Reach 50,000 Balance</h3>
                                 <p>Reward: 10,000 + 2x Multiplier</p>
                             </div>
-                            <button class="btn" style="padding: 8px 16px; width: auto;" disabled>Locked</button>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;" disabled>Locked</button>
+                        </div>
+                        <div class="shop-item">
+                            <div class="shop-info">
+                                <h3>Achieve 10 Critical Hits</h3>
+                                <p>Reward: 2,500 + Energy Boost</p>
+                            </div>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Claim</button>
                         </div>
                     </div>
                 </div>
@@ -629,6 +842,18 @@
                     </div>
                     <button class="btn">INVITE PARTNERS</button>
                 </div>
+                <div class="upgrade-card">
+                    <div class="upgrade-header">
+                        <div class="upgrade-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="upgrade-info">
+                            <h3>ACHIEVEMENT BONUS</h3>
+                            <p>Complete milestones for rewards</p>
+                        </div>
+                    </div>
+                    <button class="btn">VIEW ACHIEVEMENTS</button>
+                </div>
             </div>
         </div>
 
@@ -645,7 +870,7 @@
                         </div>
                     </div>
                     <div class="upgrade-stats">
-                        <span class="upgrade-cost" id="click-cost">1,500</span>
+                        <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="click-cost">1,500</span></span>
                         <span class="upgrade-effect">+<span id="click-effect">1</span> per tap</span>
                     </div>
                     <button class="btn" id="buy-click">UPGRADE</button>
@@ -662,7 +887,7 @@
                         </div>
                     </div>
                     <div class="upgrade-stats">
-                        <span class="upgrade-cost" id="auto-cost">15,000</span>
+                        <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="auto-cost">15,000</span></span>
                         <span class="upgrade-effect">+<span id="auto-effect">1</span> per sec</span>
                     </div>
                     <button class="btn" id="buy-auto">UPGRADE</button>
@@ -679,7 +904,7 @@
                         </div>
                     </div>
                     <div class="upgrade-stats">
-                        <span class="upgrade-cost" id="critical-cost">7,500</span>
+                        <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="critical-cost">7,500</span></span>
                         <span class="upgrade-effect"><span id="critical-effect">1</span>% chance</span>
                     </div>
                     <button class="btn" id="buy-critical">UPGRADE</button>
@@ -695,7 +920,7 @@
                         <p>Instant full energy restore</p>
                     </div>
                     <div class="shop-price">500</div>
-                    <button class="btn" style="padding: 8px 16px; width: auto; margin-left: 12px;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
                 </div>
                 <div class="shop-item">
                     <div class="shop-info">
@@ -703,7 +928,7 @@
                         <p>Double all returns</p>
                     </div>
                     <div class="shop-price">1,000</div>
-                    <button class="btn" style="padding: 8px 16px; width: auto; margin-left: 12px;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
                 </div>
                 <div class="shop-item">
                     <div class="shop-info">
@@ -711,7 +936,15 @@
                         <p>TON Crystal exclusive</p>
                     </div>
                     <div class="shop-price">5 TON</div>
-                    <button class="btn" style="padding: 8px 16px; width: auto; margin-left: 12px;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
+                </div>
+                <div class="shop-item">
+                    <div class="shop-info">
+                        <h3>Mega Boost</h3>
+                        <p>3x multiplier for 30 minutes</p>
+                    </div>
+                    <div class="shop-price">2,500</div>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
                 </div>
             </div>
         </div>
@@ -800,12 +1033,31 @@
             }
             
             init() {
+                this.createParticles();
                 this.setupEventListeners();
                 this.loadGame();
                 this.startAutoClicker();
                 this.startEnergyRegen();
                 this.updateUI();
                 this.showNotification('🚀 Welcome to Quantum Tap');
+            }
+            
+            createParticles() {
+                const particlesContainer = document.getElementById('particles');
+                for (let i = 0; i < 20; i++) {
+                    const particle = document.createElement('div');
+                    particle.className = 'particle';
+                    particle.style.width = `${Math.random() * 5 + 2}px`;
+                    particle.style.height = particle.style.width;
+                    particle.style.left = `${Math.random() * 100}%`;
+                    particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                    particle.style.animationDelay = `${Math.random() * 5}s`;
+                    
+                    const colors = ['#3b82f6', '#8b5cf6', '#06d6a0'];
+                    particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    
+                    particlesContainer.appendChild(particle);
+                }
             }
             
             setupEventListeners() {
