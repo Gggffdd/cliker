@@ -1,14 +1,13 @@
 {
   "name": "fg-bot-clicker",
   "version": "2.0.0",
-  "description": "Premium Telegram Mini App Clicker Game with Crypto Theme",
+  "description": "Premium Telegram Mini App Clicker Game",
   "type": "module",
-  "main": "server.js",
   "scripts": {
-    "dev": "vite --host",
+    "dev": "vite --host --port 3000",
     "build": "vite build",
-    "preview": "vite preview",
-    "start": "node server.js"
+    "preview": "vite preview --port 3000",
+    "start": "vite preview --port 3000 --host"
   },
   "dependencies": {
     "express": "^4.18.2",
