@@ -1,0 +1,26 @@
+{
+  "name": "fg-bot-clicker",
+  "version": "1.0.0",
+  "description": "Telegram Mini App Clicker Game",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "vite --host"
+  },
+  "dependencies": {
+    "telegram-webapp": "^1.0.0"
+  },
+  "devDependencies": {
+    "vite": "^4.4.0"
+  },
+  "keywords": [
+    "telegram",
+    "mini-app",
+    "clicker",
+    "game"
+  ],
+  "author": "FG Bot",
+  "license": "MIT"
+}
