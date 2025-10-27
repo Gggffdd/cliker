@@ -3,30 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quantum Tap - Premium Edition</title>
+    <title>Кликер SAYMON</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #3b82f6;
-            --primary-dark: #1d4ed8;
-            --primary-light: #60a5fa;
-            --secondary: #8b5cf6;
-            --accent: #06d6a0;
-            --accent-dark: #00b386;
-            --background: #0f172a;
-            --surface: #1e293b;
-            --surface-light: #334155;
-            --surface-dark: #0f172a;
-            --text-primary: #f8fafc;
-            --text-secondary: #cbd5e1;
-            --text-muted: #64748b;
+            --primary: #6366f1;
+            --primary-dark: #4f46e5;
+            --primary-light: #818cf8;
+            --secondary: #f59e0b;
+            --accent: #10b981;
+            --accent-dark: #059669;
+            --background: #0f0f23;
+            --surface: #1a1a2e;
+            --surface-light: #2d2d44;
+            --surface-dark: #0a0a18;
+            --text-primary: #f0f0ff;
+            --text-secondary: #b8b8d6;
+            --text-muted: #6c6c8a;
             --success: #10b981;
             --warning: #f59e0b;
             --error: #ef4444;
-            --border: #374151;
-            --glass: rgba(30, 41, 59, 0.7);
-            --glow: 0 0 20px rgba(59, 130, 246, 0.3);
+            --border: #3a3a5a;
+            --glass: rgba(26, 26, 46, 0.85);
+            --glow: 0 0 25px rgba(99, 102, 241, 0.4);
+            --neon-glow: 0 0 10px rgba(99, 102, 241, 0.7), 0 0 20px rgba(99, 102, 241, 0.5), 0 0 30px rgba(99, 102, 241, 0.3);
         }
 
         * {
@@ -55,10 +56,10 @@
             height: 100%;
             z-index: -1;
             background: 
-                radial-gradient(ellipse at 20% 20%, rgba(59, 130, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at 40% 40%, rgba(6, 214, 160, 0.05) 0%, transparent 50%),
-                linear-gradient(135deg, var(--background) 0%, var(--surface-dark) 100%);
+                radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(245, 158, 11, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at 40% 40%, rgba(16, 185, 129, 0.08) 0%, transparent 50%),
+                linear-gradient(160deg, var(--background) 0%, var(--surface-dark) 100%);
         }
 
         .particles {
@@ -75,13 +76,13 @@
             position: absolute;
             background: var(--primary);
             border-radius: 50%;
-            animation: float 15s infinite linear;
+            animation: float 20s infinite linear;
             opacity: 0.1;
         }
 
         @keyframes float {
             0% { transform: translateY(100vh) translateX(0) rotate(0deg); opacity: 0; }
-            10% { opacity: 0.1; }
+            10% { opacity: 0.15; }
             90% { opacity: 0.05; }
             100% { transform: translateY(-100px) translateX(100px) rotate(360deg); opacity: 0; }
         }
@@ -99,47 +100,62 @@
 
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             padding: 20px 0;
             position: relative;
         }
 
         .title {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 900;
             background: linear-gradient(135deg, var(--primary), var(--secondary), var(--accent));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
             margin-bottom: 8px;
-            text-shadow: 0 0 30px rgba(59, 130, 246, 0.3);
+            text-shadow: var(--neon-glow);
             letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+        }
+
+        .title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 10%;
+            width: 80%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 50%;
         }
 
         .subtitle {
             color: var(--text-secondary);
             font-size: 1rem;
             font-weight: 400;
-            opacity: 0.8;
+            opacity: 0.9;
+            margin-top: 5px;
         }
 
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            margin-bottom: 24px;
+            gap: 12px;
+            margin-bottom: 20px;
         }
 
         .stat-card {
             background: var(--glass);
-            border: 1px solid rgba(59, 130, 246, 0.2);
-            border-radius: 20px;
-            padding: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            border-radius: 18px;
+            padding: 18px 12px;
             text-align: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .stat-card::before {
@@ -149,8 +165,8 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
-            transition: left 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(99, 102, 241, 0.15), transparent);
+            transition: left 0.6s;
         }
 
         .stat-card:hover::before {
@@ -164,36 +180,38 @@
         }
 
         .stat-icon {
-            font-size: 1.5rem;
-            margin-bottom: 12px;
+            font-size: 1.4rem;
+            margin-bottom: 10px;
             color: var(--primary);
-            background: rgba(59, 130, 246, 0.1);
-            width: 50px;
-            height: 50px;
+            background: rgba(99, 102, 241, 0.15);
+            width: 45px;
+            height: 45px;
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin: 0 auto 12px;
+            margin: 0 auto 10px;
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
         }
 
         .stat-value {
-            font-size: 1.5rem;
+            font-size: 1.4rem;
             font-weight: 800;
             color: var(--text-primary);
             margin-bottom: 4px;
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
         }
 
         .stat-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
 
         .energy-container {
-            margin: 25px 0;
+            margin: 20px 0;
             position: relative;
         }
 
@@ -201,19 +219,20 @@
             display: flex;
             justify-content: space-between;
             margin-bottom: 10px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            font-weight: 500;
+            font-weight: 600;
         }
 
         .energy-bar {
             width: 100%;
-            height: 12px;
+            height: 14px;
             background: var(--surface);
             border-radius: 10px;
             overflow: hidden;
             position: relative;
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
+            box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.3);
         }
 
         .energy-fill {
@@ -245,15 +264,16 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 30px 0;
-            padding: 20px;
+            margin: 25px 0;
+            padding: 15px;
         }
 
         .tap-container {
             position: relative;
-            width: 220px;
-            height: 220px;
+            width: 230px;
+            height: 230px;
             cursor: pointer;
+            filter: drop-shadow(0 0 20px rgba(99, 102, 241, 0.4));
         }
 
         .coin-image {
@@ -261,19 +281,20 @@
             height: 100%;
             border-radius: 50%;
             object-fit: cover;
-            border: 4px solid var(--primary);
+            border: 5px solid var(--primary);
             box-shadow: 
-                0 0 30px rgba(59, 130, 246, 0.4),
-                inset 0 0 20px rgba(255, 255, 255, 0.1);
+                0 0 30px rgba(99, 102, 241, 0.5),
+                inset 0 0 20px rgba(255, 255, 255, 0.15);
             transition: all 0.2s ease;
             filter: brightness(1.1) contrast(1.1);
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
         }
 
         .coin-image:active {
-            transform: scale(0.95);
+            transform: scale(0.92);
             box-shadow: 
-                0 0 20px rgba(59, 130, 246, 0.6),
-                inset 0 0 20px rgba(255, 255, 255, 0.2);
+                0 0 40px rgba(99, 102, 241, 0.7),
+                inset 0 0 25px rgba(255, 255, 255, 0.25);
         }
 
         .coin-number {
@@ -281,12 +302,12 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 3rem;
+            font-size: 3.2rem;
             font-weight: 900;
             color: white;
             text-shadow: 
                 2px 2px 4px rgba(0, 0, 0, 0.8),
-                0 0 10px rgba(255, 255, 255, 0.5);
+                0 0 15px rgba(255, 255, 255, 0.7);
             z-index: 2;
             pointer-events: none;
         }
@@ -296,38 +317,39 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 240px;
-            height: 240px;
+            width: 250px;
+            height: 250px;
             background: var(--primary);
             border-radius: 50%;
-            opacity: 0.15;
-            filter: blur(20px);
-            animation: pulse 2s ease-in-out infinite alternate;
+            opacity: 0.2;
+            filter: blur(25px);
+            animation: pulse 2.5s ease-in-out infinite alternate;
         }
 
         @keyframes pulse {
-            0% { opacity: 0.1; transform: translate(-50%, -50%) scale(1); }
-            100% { opacity: 0.2; transform: translate(-50%, -50%) scale(1.1); }
+            0% { opacity: 0.15; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0.25; transform: translate(-50%, -50%) scale(1.15); }
         }
 
         .bottom-nav {
             display: grid;
-            grid-template-columns: repeat(3, 2fr);
-            gap: 10px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 8px;
             margin-top: auto;
-            padding: 20px 0 10px;
+            padding: 15px;
             background: var(--glass);
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 22px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
         }
 
         .nav-button {
             background: transparent;
             border: none;
             border-radius: 16px;
-            padding: 14px 8px;
+            padding: 12px 8px;
             text-align: center;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -341,12 +363,14 @@
 
         .nav-button:hover {
             color: var(--primary);
-            transform: translateY(-2px);
+            transform: translateY(-3px);
+            background: rgba(99, 102, 241, 0.1);
         }
 
         .nav-button.active {
             color: var(--primary);
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(99, 102, 241, 0.15);
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
         }
 
         .nav-button.active::after {
@@ -355,19 +379,20 @@
             bottom: 5px;
             left: 50%;
             transform: translateX(-50%);
-            width: 5px;
-            height: 5px;
+            width: 6px;
+            height: 6px;
             background: var(--primary);
             border-radius: 50%;
+            box-shadow: 0 0 8px var(--primary);
         }
 
         .nav-icon {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
         }
 
         .nav-label {
-            font-size: 0.7rem;
-            font-weight: 600;
+            font-size: 0.65rem;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
         }
@@ -394,13 +419,14 @@
 
         .upgrade-card {
             background: var(--glass);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
             padding: 20px;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .upgrade-card::before {
@@ -409,7 +435,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
+            height: 4px;
             background: linear-gradient(90deg, var(--primary), var(--accent));
         }
 
@@ -429,13 +455,14 @@
         .upgrade-icon {
             width: 50px;
             height: 50px;
-            background: rgba(59, 130, 246, 0.1);
+            background: rgba(99, 102, 241, 0.15);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.4rem;
             color: var(--primary);
+            box-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
         }
 
         .upgrade-info h3 {
@@ -484,6 +511,7 @@
             font-size: 0.95rem;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
         }
 
         .btn::before {
@@ -502,8 +530,8 @@
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(99, 102, 241, 0.4);
         }
 
         .btn:active {
@@ -529,14 +557,15 @@
 
         .shop-item {
             background: var(--glass);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
             padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .shop-item:hover {
@@ -566,15 +595,17 @@
             font-weight: 800;
             font-size: 1.1rem;
             margin-right: 15px;
+            text-shadow: 0 0 10px rgba(16, 185, 129, 0.3);
         }
 
         .invoice-section {
             background: var(--glass);
-            border: 1px solid rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(99, 102, 241, 0.3);
             border-radius: 20px;
             padding: 20px;
             margin-top: 16px;
-            backdrop-filter: blur(10px);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
 
         .invoice-timer {
@@ -583,6 +614,7 @@
             font-weight: 700;
             margin: 16px 0;
             font-size: 1.2rem;
+            text-shadow: 0 0 10px rgba(245, 158, 11, 0.3);
         }
 
         .invoice-address {
@@ -605,13 +637,13 @@
             color: var(--text-primary);
             padding: 16px 24px;
             border-radius: 14px;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            border: 1px solid rgba(99, 102, 241, 0.4);
             z-index: 1000;
             opacity: 0;
             transition: all 0.3s ease;
             font-weight: 600;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(10px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
             text-align: center;
             max-width: 90%;
         }
@@ -625,7 +657,7 @@
             position: absolute;
             pointer-events: none;
             font-weight: 900;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             animation: floatUp 1s ease-out forwards;
             z-index: 1000;
             text-shadow: 0 0 10px currentColor;
@@ -642,22 +674,28 @@
             }
         }
 
+        .quest-list {
+            display: grid;
+            gap: 12px;
+            margin-top: 15px;
+        }
+
         @media (max-width: 480px) {
             .container {
                 padding: 15px;
             }
             
             .title {
-                font-size: 2rem;
+                font-size: 2.3rem;
             }
             
             .tap-container {
-                width: 200px;
-                height: 200px;
+                width: 210px;
+                height: 210px;
             }
             
             .coin-number {
-                font-size: 2.5rem;
+                font-size: 2.8rem;
             }
             
             .stats-grid {
@@ -665,11 +703,16 @@
             }
             
             .stat-card {
-                padding: 15px;
+                padding: 15px 10px;
             }
             
             .bottom-nav {
                 grid-template-columns: repeat(3, 1fr);
+                padding: 12px;
+            }
+            
+            .nav-button {
+                padding: 10px 6px;
             }
         }
 
@@ -684,14 +727,71 @@
             font-size: 3rem;
             color: white;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-            border: 4px solid #f59e0b;
+            border: 5px solid #f59e0b;
             box-shadow: 
-                0 0 30px rgba(245, 158, 11, 0.4),
+                0 0 30px rgba(245, 158, 11, 0.5),
                 inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
         
         .coin-image-preload {
             display: none;
+        }
+        
+        .tab-header {
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px rgba(99, 102, 241, 0.3);
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+        
+        .tab-header::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--primary), transparent);
+            border-radius: 50%;
+        }
+        
+        .progress-bar {
+            height: 6px;
+            background: var(--surface);
+            border-radius: 3px;
+            margin: 10px 0;
+            overflow: hidden;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+        
+        .achievement-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-left: 10px;
+            font-size: 0.8rem;
+            color: white;
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+        }
+        
+        .premium-badge {
+            background: linear-gradient(135deg, #f59e0b, #d97706);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
         }
     </style>
 </head>
@@ -701,36 +801,36 @@
 
     <!-- Предзагрузка изображения -->
     <div class="coin-image-preload">
-        <img src="https://i.postimg.cc/wjwdxgMG/photo-2025-09-22-18-52-55.jpg" alt="preload">
+        <img src="https://i.postimg.cc/KvY69CJj/photo-2025-08-13-16-12-20.jpg" alt="preload">
     </div>
 
     <div class="container">
         <header class="header">
-            <h1 class="title">QUANTUM TAP</h1>
-            <p class="subtitle">Premium Investment Platform</p>
+            <h1 class="title">SAYMON</h1>
+            <p class="subtitle">Премиум Кликер</p>
         </header>
 
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-coins"></i></div>
                 <div class="stat-value" id="coins">0</div>
-                <div class="stat-label">BALANCE</div>
+                <div class="stat-label">БАЛАНС</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-bolt"></i></div>
                 <div class="stat-value" id="per-click">1</div>
-                <div class="stat-label">PER TAP</div>
+                <div class="stat-label">ЗА КЛИК</div>
             </div>
             <div class="stat-card">
                 <div class="stat-icon"><i class="fas fa-gem"></i></div>
                 <div class="stat-value" id="premium-count">0</div>
-                <div class="stat-label">PREMIUM</div>
+                <div class="stat-label">ПРЕМИУМ</div>
             </div>
         </div>
 
         <div class="energy-container">
             <div class="energy-header">
-                <span>ENERGY</span>
+                <span>ЭНЕРГИЯ</span>
                 <span id="energy-text">1000/1000</span>
             </div>
             <div class="energy-bar">
@@ -742,7 +842,7 @@
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <img src="https://i.postimg.cc/wjwdxgMG/photo-2025-09-22-18-52-55.jpg" alt="Quantum Coin" class="coin-image" id="coin-image" onerror="this.style.display='none'; document.getElementById('coin-fallback').style.display='flex';">
+                    <img src="https://i.postimg.cc/KvY69CJj/photo-2025-08-13-16-12-20.jpg" alt="SAYMON Coin" class="coin-image" id="coin-image" onerror="this.style.display='none'; document.getElementById('coin-fallback').style.display='flex';">
                     <div class="fallback-coin" id="coin-fallback" style="display: none;">
                         <i class="fas fa-coins"></i>
                     </div>
@@ -757,8 +857,8 @@
                             <i class="fas fa-chart-line"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>TOTAL EARNED</h3>
-                            <p>Your investment journey</p>
+                            <h3>ВСЕГО ЗАРАБОТАНО</h3>
+                            <p>Ваш инвестиционный путь</p>
                         </div>
                     </div>
                     <div class="stat-value" id="total-coins">0</div>
@@ -769,8 +869,8 @@
                             <i class="fas fa-bolt"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>CRITICAL RETURNS</h3>
-                            <p>High-yield moments</p>
+                            <h3>КРИТИЧЕСКИЕ УДАРЫ</h3>
+                            <p>Моменты высокой доходности</p>
                         </div>
                     </div>
                     <div class="stat-value" id="critical-hits">0</div>
@@ -779,38 +879,42 @@
         </div>
 
         <div class="tab-content" id="quests-tab">
+            <div class="tab-header">ЗАДАНИЯ</div>
             <div class="upgrades-grid">
                 <div class="upgrade-card">
-                    <div class="upgrade-header">
-                        <div class="upgrade-icon">
-                            <i class="fas fa-tasks"></i>
-                        </div>
-                        <div class="upgrade-info">
-                            <h3>BUSINESS OBJECTIVES</h3>
-                            <p>Complete for rewards</p>
-                        </div>
-                    </div>
                     <div class="quest-list">
                         <div class="shop-item">
                             <div class="shop-info">
-                                <h3>Make 100 Investments</h3>
-                                <p>Reward: 5,000 + Premium Boost</p>
+                                <h3>Сделать 100 инвестиций</h3>
+                                <p>Награда: 5,000 + Премиум буст</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 30%"></div>
+                                </div>
+                                <p>Прогресс: 30/100</p>
                             </div>
-                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Claim</button>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Забрать</button>
                         </div>
                         <div class="shop-item">
                             <div class="shop-info">
-                                <h3>Reach 50,000 Balance</h3>
-                                <p>Reward: 10,000 + 2x Multiplier</p>
+                                <h3>Достичь баланса 50,000</h3>
+                                <p>Награда: 10,000 + 2x Множитель</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 15%"></div>
+                                </div>
+                                <p>Прогресс: 7,500/50,000</p>
                             </div>
-                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;" disabled>Locked</button>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;" disabled>Заблокировано</button>
                         </div>
                         <div class="shop-item">
                             <div class="shop-info">
-                                <h3>Achieve 10 Critical Hits</h3>
-                                <p>Reward: 2,500 + Energy Boost</p>
+                                <h3>Достичь 10 критических ударов</h3>
+                                <p>Награда: 2,500 + Буст энергии</p>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 60%"></div>
+                                </div>
+                                <p>Прогресс: 6/10</p>
                             </div>
-                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Claim</button>
+                            <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">Забрать</button>
                         </div>
                     </div>
                 </div>
@@ -818,6 +922,7 @@
         </div>
 
         <div class="tab-content" id="bonuses-tab">
+            <div class="tab-header">БОНУСЫ</div>
             <div class="upgrades-grid">
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -825,11 +930,11 @@
                             <i class="fas fa-gift"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>DAILY BONUS</h3>
-                            <p>Available in 12:34:21</p>
+                            <h3>ЕЖЕДНЕВНЫЙ БОНУС</h3>
+                            <p>Доступен через 12:34:21</p>
                         </div>
                     </div>
-                    <button class="btn" id="claim-daily" disabled>CLAIM IN 12:34:21</button>
+                    <button class="btn" id="claim-daily" disabled>ЗАБРАТЬ ЧЕРЕЗ 12:34:21</button>
                 </div>
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -837,11 +942,11 @@
                             <i class="fas fa-users"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>REFERRAL PROGRAM</h3>
-                            <p>Earn 10% from referrals</p>
+                            <h3>РЕФЕРАЛЬНАЯ ПРОГРАММА</h3>
+                            <p>Зарабатывайте 10% от рефералов</p>
                         </div>
                     </div>
-                    <button class="btn">INVITE PARTNERS</button>
+                    <button class="btn">ПРИГЛАСИТЬ ПАРТНЕРОВ</button>
                 </div>
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -849,16 +954,17 @@
                             <i class="fas fa-star"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>ACHIEVEMENT BONUS</h3>
-                            <p>Complete milestones for rewards</p>
+                            <h3>БОНУС ЗА ДОСТИЖЕНИЯ</h3>
+                            <p>Получайте награды за milestones</p>
                         </div>
                     </div>
-                    <button class="btn">VIEW ACHIEVEMENTS</button>
+                    <button class="btn">ПОСМОТРЕТЬ ДОСТИЖЕНИЯ</button>
                 </div>
             </div>
         </div>
 
         <div class="tab-content" id="upgrades-tab">
+            <div class="tab-header">УЛУЧШЕНИЯ</div>
             <div class="upgrades-grid">
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -866,15 +972,15 @@
                             <i class="fas fa-mouse-pointer"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>INVESTMENT POWER</h3>
-                            <p>Increase return per tap</p>
+                            <h3>СИЛА ИНВЕСТИЦИЙ</h3>
+                            <p>Увеличить доход за клик</p>
                         </div>
                     </div>
                     <div class="upgrade-stats">
                         <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="click-cost">1,500</span></span>
-                        <span class="upgrade-effect">+<span id="click-effect">1</span> per tap</span>
+                        <span class="upgrade-effect">+<span id="click-effect">1</span> за клик</span>
                     </div>
-                    <button class="btn" id="buy-click">UPGRADE</button>
+                    <button class="btn" id="buy-click">УЛУЧШИТЬ</button>
                 </div>
 
                 <div class="upgrade-card">
@@ -883,15 +989,15 @@
                             <i class="fas fa-robot"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>AUTO INVESTOR</h3>
-                            <p>Automated returns</p>
+                            <h3>АВТО ИНВЕСТОР</h3>
+                            <p>Автоматизированные доходы</p>
                         </div>
                     </div>
                     <div class="upgrade-stats">
                         <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="auto-cost">15,000</span></span>
-                        <span class="upgrade-effect">+<span id="auto-effect">1</span> per sec</span>
+                        <span class="upgrade-effect">+<span id="auto-effect">1</span> в сек</span>
                     </div>
-                    <button class="btn" id="buy-auto">UPGRADE</button>
+                    <button class="btn" id="buy-auto">УЛУЧШИТЬ</button>
                 </div>
 
                 <div class="upgrade-card">
@@ -900,57 +1006,59 @@
                             <i class="fas fa-chart-bar"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>YIELD BOOSTER</h3>
-                            <p>Chance for bonus returns</p>
+                            <h3>БУСТЕР ДОХОДНОСТИ</h3>
+                            <p>Шанс на бонусные доходы</p>
                         </div>
                     </div>
                     <div class="upgrade-stats">
                         <span class="upgrade-cost"><i class="fas fa-coins"></i> <span id="critical-cost">7,500</span></span>
-                        <span class="upgrade-effect"><span id="critical-effect">1</span>% chance</span>
+                        <span class="upgrade-effect"><span id="critical-effect">1</span>% шанс</span>
                     </div>
-                    <button class="btn" id="buy-critical">UPGRADE</button>
+                    <button class="btn" id="buy-critical">УЛУЧШИТЬ</button>
                 </div>
             </div>
         </div>
 
         <div class="tab-content" id="shop-tab">
+            <div class="tab-header">МАГАЗИН</div>
             <div class="shop-grid">
                 <div class="shop-item">
                     <div class="shop-info">
-                        <h3>Energy Refill</h3>
-                        <p>Instant full energy restore</p>
+                        <h3>Пополнение энергии</h3>
+                        <p>Мгновенное восстановление</p>
                     </div>
                     <div class="shop-price">500</div>
-                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">КУПИТЬ</button>
                 </div>
                 <div class="shop-item">
                     <div class="shop-info">
-                        <h3>2x Multiplier (1h)</h3>
-                        <p>Double all returns</p>
+                        <h3>2x Множитель (1ч)</h3>
+                        <p>Удваивает все доходы</p>
                     </div>
                     <div class="shop-price">1,000</div>
-                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">КУПИТЬ</button>
                 </div>
                 <div class="shop-item">
                     <div class="shop-info">
-                        <h3>Premium Package</h3>
-                        <p>TON Crystal exclusive</p>
+                        <h3>Премиум пакет</h3>
+                        <p>Эксклюзив TON Crystal</p>
                     </div>
                     <div class="shop-price">5 TON</div>
-                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">КУПИТЬ</button>
                 </div>
                 <div class="shop-item">
                     <div class="shop-info">
-                        <h3>Mega Boost</h3>
-                        <p>3x multiplier for 30 minutes</p>
+                        <h3>Мега буст</h3>
+                        <p>3x множитель на 30 минут</p>
                     </div>
                     <div class="shop-price">2,500</div>
-                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">BUY</button>
+                    <button class="btn" style="padding: 10px 16px; width: auto; font-size: 0.85rem;">КУПИТЬ</button>
                 </div>
             </div>
         </div>
 
         <div class="tab-content" id="donate-tab">
+            <div class="tab-header">ПОДДЕРЖАТЬ</div>
             <div class="upgrades-grid">
                 <div class="upgrade-card">
                     <div class="upgrade-header">
@@ -958,22 +1066,22 @@
                             <i class="fas fa-heart"></i>
                         </div>
                         <div class="upgrade-info">
-                            <h3>SUPPORT DEVELOPMENT</h3>
-                            <p>Help improve the platform</p>
+                            <h3>ПОДДЕРЖАТЬ РАЗРАБОТКУ</h3>
+                            <p>Помогите улучшить платформу</p>
                         </div>
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 16px;">
-                        <button class="btn" id="donate-legal" style="padding: 12px;">LEGAL CODE</button>
-                        <button class="btn" id="donate-address" style="padding: 12px;">WALLET ADDRESS</button>
+                        <button class="btn" id="donate-legal" style="padding: 12px;">ЮРИДИЧЕСКИЙ КОД</button>
+                        <button class="btn" id="donate-address" style="padding: 12px;">АДРЕС КОШЕЛЬКА</button>
                     </div>
 
                     <div class="invoice-section" id="invoice-section" style="display: none;">
-                        <h4 style="margin-bottom: 12px; color: var(--accent);">INVOICE</h4>
-                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Pay within 15 minutes</p>
+                        <h4 style="margin-bottom: 12px; color: var(--accent);">СЧЕТ</h4>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Оплатите в течение 15 минут</p>
                         <div class="invoice-timer" id="invoice-timer">15:00</div>
                         <div class="invoice-address" id="invoice-address"></div>
-                        <button class="btn" id="copy-address" style="margin-top: 12px;">COPY ADDRESS</button>
+                        <button class="btn" id="copy-address" style="margin-top: 12px;">СКОПИРОВАТЬ АДРЕС</button>
                     </div>
                 </div>
             </div>
@@ -982,27 +1090,27 @@
         <div class="bottom-nav">
             <div class="nav-button active" data-tab="clicker">
                 <div class="nav-icon"><i class="fas fa-hand-pointer"></i></div>
-                <div class="nav-label">CLICKER</div>
+                <div class="nav-label">КЛИКЕР</div>
             </div>
             <div class="nav-button" data-tab="quests">
                 <div class="nav-icon"><i class="fas fa-tasks"></i></div>
-                <div class="nav-label">QUESTS</div>
+                <div class="nav-label">ЗАДАНИЯ</div>
             </div>
             <div class="nav-button" data-tab="bonuses">
                 <div class="nav-icon"><i class="fas fa-gift"></i></div>
-                <div class="nav-label">BONUSES</div>
+                <div class="nav-label">БОНУСЫ</div>
             </div>
             <div class="nav-button" data-tab="upgrades">
                 <div class="nav-icon"><i class="fas fa-arrow-up"></i></div>
-                <div class="nav-label">UPGRADES</div>
+                <div class="nav-label">УЛУЧШЕНИЯ</div>
             </div>
             <div class="nav-button" data-tab="shop">
                 <div class="nav-icon"><i class="fas fa-shopping-cart"></i></div>
-                <div class="nav-label">SHOP</div>
+                <div class="nav-label">МАГАЗИН</div>
             </div>
             <div class="nav-button" data-tab="donate">
                 <div class="nav-icon"><i class="fas fa-donate"></i></div>
-                <div class="nav-label">DONATE</div>
+                <div class="nav-label">ПОДДЕРЖАТЬ</div>
             </div>
         </div>
     </div>
@@ -1010,7 +1118,7 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        class QuantumTap {
+        class SaymonClicker {
             constructor() {
                 this.coins = 0;
                 this.perClick = 1;
@@ -1039,7 +1147,7 @@
                 this.startEnergyRegen();
                 this.updateUI();
                 this.setupImageHandling();
-                this.showNotification('🚀 Welcome to Quantum Tap');
+                this.showNotification('🚀 Добро пожаловать в SAYMON Кликер');
             }
             
             setupImageHandling() {
@@ -1077,16 +1185,16 @@
             
             createParticles() {
                 const particlesContainer = document.getElementById('particles');
-                for (let i = 0; i < 20; i++) {
+                for (let i = 0; i < 25; i++) {
                     const particle = document.createElement('div');
                     particle.className = 'particle';
-                    particle.style.width = `${Math.random() * 5 + 2}px`;
+                    particle.style.width = `${Math.random() * 6 + 2}px`;
                     particle.style.height = particle.style.width;
                     particle.style.left = `${Math.random() * 100}%`;
-                    particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+                    particle.style.animationDuration = `${Math.random() * 15 + 10}s`;
                     particle.style.animationDelay = `${Math.random() * 5}s`;
                     
-                    const colors = ['#3b82f6', '#8b5cf6', '#06d6a0'];
+                    const colors = ['#6366f1', '#f59e0b', '#10b981'];
                     particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                     
                     particlesContainer.appendChild(particle);
@@ -1115,7 +1223,7 @@
             
             handleTap(event) {
                 if (this.energy <= 0) {
-                    this.showNotification('⚡ Not enough energy');
+                    this.showNotification('⚡ Недостаточно энергии');
                     return;
                 }
                 
@@ -1139,7 +1247,7 @@
                 const fallbackCoin = document.getElementById('coin-fallback');
                 const coinElement = coinImage.style.display !== 'none' ? coinImage : fallbackCoin;
                 
-                coinElement.style.transform = 'scale(0.95)';
+                coinElement.style.transform = 'scale(0.92)';
                 setTimeout(() => {
                     coinElement.style.transform = 'scale(1)';
                 }, 100);
@@ -1153,7 +1261,7 @@
                 effect.textContent = `+${amount}`;
                 effect.style.left = `${event.clientX}px`;
                 effect.style.top = `${event.clientY}px`;
-                effect.style.color = isCritical ? '#ef4444' : '#06d6a0';
+                effect.style.color = isCritical ? '#ef4444' : '#10b981';
                 
                 document.body.appendChild(effect);
                 
@@ -1162,7 +1270,7 @@
                 }, 1000);
                 
                 if (isCritical) {
-                    this.showNotification('💥 Critical Return!');
+                    this.showNotification('💥 Критический удар!');
                 }
             }
             
@@ -1190,16 +1298,16 @@
                             break;
                     }
                     
-                    this.showNotification('✅ Upgrade purchased');
+                    this.showNotification('✅ Улучшение приобретено');
                     this.updateUI();
                     this.saveGame();
                 } else {
-                    this.showNotification('💰 Insufficient balance');
+                    this.showNotification('💰 Недостаточно средств');
                 }
             }
             
             showLegalDonate() {
-                this.showNotification('📝 Legal code: QT2024BUSINESS');
+                this.showNotification('📝 Юридический код: SAYMONLEGAL2024');
             }
             
             createInvoice() {
@@ -1230,7 +1338,7 @@
             copyAddress() {
                 const address = document.getElementById('invoice-address').textContent;
                 navigator.clipboard.writeText(address).then(() => {
-                    this.showNotification('📋 Address copied to clipboard');
+                    this.showNotification('📋 Адрес скопирован в буфер обмена');
                 });
             }
             
@@ -1311,11 +1419,11 @@
                     upgrades: this.upgrades
                 };
                 
-                localStorage.setItem('quantumTapSave', JSON.stringify(gameData));
+                localStorage.setItem('saymonSave', JSON.stringify(gameData));
             }
             
             loadGame() {
-                const savedData = localStorage.getItem('quantumTapSave');
+                const savedData = localStorage.getItem('saymonSave');
                 
                 if (savedData) {
                     const gameData = JSON.parse(savedData);
@@ -1336,7 +1444,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            window.game = new QuantumTap();
+            window.game = new SaymonClicker();
         });
     </script>
 </body>
