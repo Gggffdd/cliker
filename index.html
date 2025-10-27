@@ -673,14 +673,6 @@
             }
         }
 
-        .tap-section {
-            display: none;
-        }
-        
-        #clicker-tab.active .tap-section {
-            display: flex;
-        }
-        
         .fallback-coin {
             width: 100%;
             height: 100%;
@@ -697,11 +689,20 @@
                 0 0 30px rgba(245, 158, 11, 0.4),
                 inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
+        
+        .coin-image-preload {
+            display: none;
+        }
     </style>
 </head>
 <body>
     <div class="background-animation"></div>
     <div class="particles" id="particles"></div>
+
+    <!-- Предзагрузка изображения -->
+    <div class="coin-image-preload">
+        <img src="https://i.ibb.co/HRh21vK/photo-2025-10-15-23-13-06.jpg" alt="preload">
+    </div>
 
     <div class="container">
         <header class="header">
@@ -741,7 +742,10 @@
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <img src="https://i.postimg.cc/fWPfDZ2J/photo-2025-10-15-23-13-06.jpg" alt="Coin" class="coin-image" id="coin-image">
+                    <img src="https://i.ibb.co/HRh21vK/photo-2025-10-15-23-13-06.jpg" alt="Quantum Coin" class="coin-image" id="coin-image" onerror="this.style.display='none'; document.getElementById('coin-fallback').style.display='flex';">
+                    <div class="fallback-coin" id="coin-fallback" style="display: none;">
+                        <i class="fas fa-coins"></i>
+                    </div>
                     <div class="coin-number">69</div>
                 </div>
             </div>
@@ -1034,8 +1038,41 @@
                 this.startAutoClicker();
                 this.startEnergyRegen();
                 this.updateUI();
-                this.setupImageFallback();
+                this.setupImageHandling();
                 this.showNotification('🚀 Welcome to Quantum Tap');
+            }
+            
+            setupImageHandling() {
+                const coinImage = document.getElementById('coin-image');
+                const fallbackCoin = document.getElementById('coin-fallback');
+                
+                // Проверяем загрузилось ли изображение
+                coinImage.onload = () => {
+                    console.log('Coin image loaded successfully');
+                    fallbackCoin.style.display = 'none';
+                    coinImage.style.display = 'block';
+                };
+                
+                coinImage.onerror = () => {
+                    console.log('Coin image failed to load, using fallback');
+                    coinImage.style.display = 'none';
+                    fallbackCoin.style.display = 'flex';
+                    
+                    // Добавляем обработчик клика на fallback
+                    fallbackCoin.addEventListener('click', (e) => this.handleTap(e));
+                };
+                
+                // Добавляем обработчик клика на основное изображение
+                coinImage.addEventListener('click', (e) => this.handleTap(e));
+                
+                // Принудительно проверяем загрузку изображения
+                if (coinImage.complete) {
+                    if (coinImage.naturalHeight === 0) {
+                        coinImage.onerror();
+                    } else {
+                        coinImage.onload();
+                    }
+                }
             }
             
             createParticles() {
@@ -1056,23 +1093,7 @@
                 }
             }
             
-            setupImageFallback() {
-                const coinImage = document.getElementById('coin-image');
-                coinImage.onerror = () => {
-                    coinImage.style.display = 'none';
-                    const fallback = document.createElement('div');
-                    fallback.className = 'fallback-coin';
-                    fallback.innerHTML = '<i class="fas fa-coins"></i>';
-                    fallback.id = 'coin-fallback';
-                    coinImage.parentNode.insertBefore(fallback, coinImage.nextSibling);
-                    
-                    fallback.addEventListener('click', (e) => this.handleTap(e));
-                };
-            }
-            
             setupEventListeners() {
-                document.getElementById('coin-image').addEventListener('click', (e) => this.handleTap(e));
-                
                 document.querySelectorAll('.nav-button').forEach(button => {
                     button.addEventListener('click', () => {
                         document.querySelectorAll('.nav-button').forEach(btn => btn.classList.remove('active'));
@@ -1114,7 +1135,10 @@
                 this.updateUI();
                 this.createTapEffect(event, coinsEarned, isCritical);
                 
-                const coinElement = document.getElementById('coin-image') || document.getElementById('coin-fallback');
+                const coinImage = document.getElementById('coin-image');
+                const fallbackCoin = document.getElementById('coin-fallback');
+                const coinElement = coinImage.style.display !== 'none' ? coinImage : fallbackCoin;
+                
                 coinElement.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     coinElement.style.transform = 'scale(1)';
