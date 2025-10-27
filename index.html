@@ -267,7 +267,6 @@
                 inset 0 0 20px rgba(255, 255, 255, 0.1);
             transition: all 0.2s ease;
             filter: brightness(1.1) contrast(1.1);
-            background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706);
         }
 
         .coin-image:active {
@@ -698,11 +697,6 @@
                 0 0 30px rgba(245, 158, 11, 0.4),
                 inset 0 0 20px rgba(255, 255, 255, 0.2);
         }
-
-        /* Стиль для загруженного изображения */
-        .coin-image.loaded {
-            background: none;
-        }
     </style>
 </head>
 <body>
@@ -747,9 +741,8 @@
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <div class="coin-image" id="coin-image">
-                        <div class="coin-number">69</div>
-                    </div>
+                    <img src="https://i.postimg.cc/fWPfDZ2J/photo-2025-10-15-23-13-06.jpg" alt="Coin" class="coin-image" id="coin-image">
+                    <div class="coin-number">69</div>
                 </div>
             </div>
 
@@ -1041,27 +1034,8 @@
                 this.startAutoClicker();
                 this.startEnergyRegen();
                 this.updateUI();
-                this.loadCoinImage();
+                this.setupImageFallback();
                 this.showNotification('🚀 Welcome to Quantum Tap');
-            }
-            
-            loadCoinImage() {
-                const coinImage = document.getElementById('coin-image');
-                const img = new Image();
-                
-                // Пробуем загрузить изображение
-                img.onload = () => {
-                    coinImage.style.backgroundImage = `url('https://i.supaimg.com/6c8b51fb-c452-4a8e-b0c6-eeb6b66f849e.jpg')`;
-                    coinImage.classList.add('loaded');
-                };
-                
-                img.onerror = () => {
-                    // Если изображение не загружается, используем fallback
-                    coinImage.style.background = 'linear-gradient(135deg, #fbbf24, #f59e0b, #d97706)';
-                    coinImage.innerHTML = '<i class="fas fa-coins" style="font-size: 5rem; color: white; text-shadow: 2px 2px 4px rgba(0,0,0,0.5);"></i>';
-                };
-                
-                img.src = 'https://i.supaimg.com/6c8b51fb-c452-4a8e-b0c6-eeb6b66f849e.jpg';
             }
             
             createParticles() {
@@ -1080,6 +1054,20 @@
                     
                     particlesContainer.appendChild(particle);
                 }
+            }
+            
+            setupImageFallback() {
+                const coinImage = document.getElementById('coin-image');
+                coinImage.onerror = () => {
+                    coinImage.style.display = 'none';
+                    const fallback = document.createElement('div');
+                    fallback.className = 'fallback-coin';
+                    fallback.innerHTML = '<i class="fas fa-coins"></i>';
+                    fallback.id = 'coin-fallback';
+                    coinImage.parentNode.insertBefore(fallback, coinImage.nextSibling);
+                    
+                    fallback.addEventListener('click', (e) => this.handleTap(e));
+                };
             }
             
             setupEventListeners() {
@@ -1126,7 +1114,7 @@
                 this.updateUI();
                 this.createTapEffect(event, coinsEarned, isCritical);
                 
-                const coinElement = document.getElementById('coin-image');
+                const coinElement = document.getElementById('coin-image') || document.getElementById('coin-fallback');
                 coinElement.style.transform = 'scale(0.95)';
                 setTimeout(() => {
                     coinElement.style.transform = 'scale(1)';
