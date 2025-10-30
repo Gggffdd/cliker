@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Кликер SAYMON</title>
+    <title>Indigo Gift</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
@@ -806,7 +806,7 @@
 
     <div class="container">
         <header class="header">
-            <h1 class="title">SAYMON</h1>
+            <h1 class="title">INDIGO GIFT</h1>
             <p class="subtitle">Премиум Кликер</p>
         </header>
 
@@ -842,7 +842,7 @@
             <div class="tap-section">
                 <div class="tap-container" id="tap-container">
                     <div class="tap-glow"></div>
-                    <img src="https://i.postimg.cc/wvJv8HdW/photo-2025-10-26-21-47-02.jpg" alt="SAYMON Coin" class="coin-image" id="coin-image" onerror="this.style.display='none'; document.getElementById('coin-fallback').style.display='flex';">
+                    <img src="https://i.postimg.cc/wvJv8HdW/photo-2025-10-26-21-47-02.jpg" alt="INDIGO GIFT Coin" class="coin-image" id="coin-image" onerror="this.style.display='none'; document.getElementById('coin-fallback').style.display='flex';">
                     <div class="fallback-coin" id="coin-fallback" style="display: none;">
                         <i class="fas fa-coins"></i>
                     </div>
@@ -1117,7 +1117,7 @@
     <div class="notification" id="notification"></div>
 
     <script>
-        class SaymonClicker {
+        class IndigoGift {
             constructor() {
                 this.coins = 0;
                 this.perClick = 1;
@@ -1146,7 +1146,7 @@
                 this.startEnergyRegen();
                 this.updateUI();
                 this.setupImageHandling();
-                this.showNotification('🚀 Добро пожаловать в SAYMON Кликер');
+                this.showNotification('🚀 Добро пожаловать в INDIGO GIFT Кликер');
             }
             
             setupImageHandling() {
@@ -1306,7 +1306,7 @@
             }
             
             showLegalDonate() {
-                this.showNotification('📝 Юридический код: SAYMONLEGAL2024');
+                this.showNotification('📝 Юридический код: INDIGOGIFT2024');
             }
             
             createInvoice() {
@@ -1418,11 +1418,11 @@
                     upgrades: this.upgrades
                 };
                 
-                localStorage.setItem('saymonSave', JSON.stringify(gameData));
+                localStorage.setItem('indigoGiftSave', JSON.stringify(gameData));
             }
             
             loadGame() {
-                const savedData = localStorage.getItem('saymonSave');
+                const savedData = localStorage.getItem('indigoGiftSave');
                 
                 if (savedData) {
                     const gameData = JSON.parse(savedData);
@@ -1443,7 +1443,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
-            window.game = new SaymonClicker();
+            window.game = new IndigoGift();
         });
     </script>
 </body>
